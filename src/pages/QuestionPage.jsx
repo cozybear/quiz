@@ -82,6 +82,7 @@ function QuestionPage(){
         setcorrectAnswer(currentQuestion.Answer);
         setSubmitAnswer(true);
         setnextButton(true);
+        // console.log()
 
         if (userAnswer === correctAnswer) {
             sessionStorage.setItem("Score", JSON.parse(sessionStorage.getItem("Score"))+1 )
