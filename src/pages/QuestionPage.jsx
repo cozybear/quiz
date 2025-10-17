@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Question, dbService } from '../index'
+import { Question, QuestionComponent, dbService } from '../index'
 import conf from '../conf/conf'
 import { useSelector } from 'react-redux';
 
@@ -43,12 +43,7 @@ function QuestionPage(){
             }
         }
         getQuestions();
-
-
     }, [classId, topicId]);
-
-
-  
 
     const nextQuestion = () => {
         if (currentIndex < questions.length - 1) {
@@ -62,8 +57,6 @@ function QuestionPage(){
             console.log(userAnswer);
         }
     };
-
-
     if (questions.length === 0) {
         return (
             <div>
@@ -71,11 +64,6 @@ function QuestionPage(){
             </div>
         );
     }
-    // console.log(submitAnswer);
-    
-    // console.log(currentQuestion);
-    
-
     const onSubmitAnswer = (data) => {
 
         setUserAnswer(data.selectedanswer);
@@ -87,16 +75,13 @@ function QuestionPage(){
         if (userAnswer === correctAnswer) {
             sessionStorage.setItem("Score", JSON.parse(sessionStorage.getItem("Score"))+1 )
         }
-
     }
-
-
     return (
         <div>
                   
             <div>
                 
-                <Question 
+                <QuestionComponent 
                     question={currentQuestion.Question}
                     option1={currentQuestion.Option1}
                     option2={currentQuestion.Option2}
