@@ -55,7 +55,7 @@ function InitiateQuiz() {
 
    
     const startQuiz = (e) => {
-        console.log(classname)
+        // console.log(classname)
 
         navigate('/quiz')
 
