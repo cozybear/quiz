@@ -23,9 +23,6 @@ function QuestionComponent({
     const [displayClasses, setdisplayClasses] = useState("")
     const optionArray = [option1, option2, option3, option4];
     
-
- 
-
     return (
         <div className='max-w-md min-w-200 mx-auto p-6'>
             <form onSubmit={handleSubmit(onSubmit)} >                    
@@ -61,10 +58,7 @@ function QuestionComponent({
                     </div>
             </form>
 
-          
             <div className='max-w-md min-w-200 mx-auto p-6'>
-
-                {/* <button onClick={nextQuestion}> { nextButton? "Next Question" : "Can't Answer" }</button> */}
                 <Button className=' bg-gray-500 my-2 rounded-xl shadow-lg  p-2  text-center hover:bg-yellow-500' onClick={nextQuestion} buttonName={ nextButton? "Next Question" : "Can't Answer" }/>
                         
             </div>
