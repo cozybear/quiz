@@ -12,6 +12,7 @@ function Button({buttonName, onClick, type, disabled, className, hidden}) {
             type={type} 
             disabled={disabled}
             hidden={hidden}
+            value={buttonName}
             >
                 {buttonName}
             </button>

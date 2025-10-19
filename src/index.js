@@ -11,7 +11,9 @@ import InitiateQuiz from '../src/pages/InitiateQuiz';
 import Button from './components/Button';
 import InputBox from './components/InputBox';
 import StudentInfo from '../src/pages/StudentInfo';
-
+import QuestionComponent from '../src/components/QuestionComponent';
+import Result from '../src/components/Result';
+import ResultPage from '../src/pages/ResultPage';
 
 export {
     Question,
@@ -27,4 +29,7 @@ export {
     InputBox,
     StudentInfo,
     authService,
+    QuestionComponent,
+    Result,
+    ResultPage
 };

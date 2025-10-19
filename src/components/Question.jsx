@@ -15,7 +15,9 @@ function Question({
     submitAnswer, 
     className, 
     nextButton=false, 
-    nextQuestion }) {
+    nextQuestion,
+    nextButtonName
+     }) {
 
     
     const {register, handleSubmit, watch} = useForm();
@@ -41,7 +43,7 @@ function Question({
     return (
         <div className='max-w-md min-w-200 mx-auto p-6'>
             <form onSubmit={handleSubmit(onSubmit)} >                    
-                <div className="max-w-md min-w-200 mx-auto p-6 bg-white rounded-2xl shadow-lg text-3xl">
+                <div className="w-full p-6 bg-white rounded-2xl shadow-lg text-3xl">
                     {question}
                 </div>
 
@@ -50,7 +52,7 @@ function Question({
                     {optionArray.filter((item) => item && item)
                     .map((item, index) => (
                         <div key={index}>
-                            <div className="max-w-sm min-w-80">
+                            <div className="max-w-sm">
                             
                                 <label className={`flex items-center mt-4 py-2 rounded-2xl shadow-lg cursor-pointer mb-3 transition
                                     ${getOptionClass(item)}  ${submitAnswer ? "cursor-not-allowed" : ""}
@@ -119,19 +121,26 @@ function Question({
                         </label>
                     </div> */}
                 {/* </div> */}
-                    <div className='grid grid-cols-2 gap-2'>
-                        
-                        <div className='  rounded-xl shadow-lg bg-gray-300 p-2 justify-center text-center hover:bg-yellow-500'>
-                            <button type='submit' disabled={submitAnswer}>Submit</button>
-                        </div>
+                    <div className='max-w-md min-w-200 mx-auto flex items-center'>
+                        <Button 
+                            className=' bg-gray-500 my-2 rounded-xl shadow-lg  p-2  text-center hover:bg-yellow-500'
+                            type='submit' disabled={submitAnswer} buttonName="Submit"
+                        />
                     </div>
             </form>
 
           
-            <div className='max-w-md min-w-200 mx-auto p-6'>
+            <div className='max-w-md min-w-200 mx-auto flex items-center'>
 
                 {/* <button onClick={nextQuestion}> { nextButton? "Next Question" : "Can't Answer" }</button> */}
-                <Button className=' bg-gray-500 my-2 rounded-xl shadow-lg  p-2  text-center hover:bg-yellow-500' onClick={nextQuestion} buttonName={ nextButton? "Next Question" : "Can't Answer" }/>
+                <Button 
+                    type="button"
+                    className=' bg-gray-500 my-2 rounded-xl shadow-lg  p-2  text-center hover:bg-yellow-500'
+                    onClick={nextQuestion}
+                    // buttonName={ nextButton? "Next Question" : "Can't Answer" }
+                    buttonName={nextButtonName}
+                    value={nextButtonName}
+                />
                         
             </div>
         </div>
