@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { QuestionPage, Layout, TestMobile, Home, InitiateQuiz, StudentInfo  } from '../src/index'
+import { QuestionPage, Layout, TestMobile, Home, InitiateQuiz, StudentInfo, ResultPage  } from '../src/index'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 function App() {
@@ -33,6 +33,10 @@ function App() {
         {
           path: '/quiz',
           element: <QuestionPage />
+        },
+        {
+          path: '/result',
+          element: <ResultPage />
         }
       ]
     }

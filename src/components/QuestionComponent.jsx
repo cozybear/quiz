@@ -37,6 +37,7 @@ function QuestionComponent({
                             <div className="max-w-sm min-w-80">
                                 <label 
                                 className={`flex items-center mt-4 py-2 rounded-2xl shadow-lg cursor-pointer mb-3 transition
+                                    
                                     hover:bg-indigo-300 `}> 
                                     <input type='radio' value={item}
                                         {...register("selectedanswer", {required: true})}

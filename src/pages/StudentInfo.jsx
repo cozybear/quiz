@@ -14,26 +14,29 @@ function StudentInfo() {
 
     const submitInfo = async (data) => {
         setError("");
-        console.log(data);
+        // console.log(data);
+        const email = data.email;
+        const firstName = data.firstname;
+        const lastName = data.lastname;
         try {
-            const email = data.email;
-            const firstName = data.firstname;
-            const lastName = data.lastname;
             const session = await dbService.createStudent({firstName, lastName, email});
     
             if (session) {
-                console.log(session);
+                // console.log(session);
+                sessionStorage.setItem("StudentDetails", session)
                 navigate('/startquiz');
             }
             
         } catch (error) {
             if (String(error).includes("ID already exists")) {
+                // dbService.getStudentIdByEmail(email);
+            const studentId =  (await dbService.getStudentIdByEmail(email)).rows[0].email;
+            console.log(studentId);
+            sessionStorage.setItem("StudentDetails", studentId)
                 console.log("Student Already Registered")
                 navigate('/startquiz');
             }
-        }
-
-        
+        }   
     }
 
     return(

@@ -66,7 +66,7 @@ export class DBService {
     }
 
 
-     createStudent({firstName, lastName, email}) {
+    createStudent({firstName, lastName, email}) {
         
             try {
                 return  this.TablesDB.createRow({
@@ -85,6 +85,36 @@ export class DBService {
             }
 
        
+    }
+
+    async getTopicById(topicId) {
+
+        return this.TablesDB.getRow({
+            databaseId: conf.appwriteDatabaseID,
+            tableId: conf.tableIDClassTopic,
+            rowId: String(topicId)
+
+        })
+
+    }
+
+    async getClassById(classId) {
+
+        return this.TablesDB.getRow({
+            databaseId: conf.appwriteDatabaseID,
+            tableId: conf.tableIDClasses,
+            rowId: String(classId)
+        })
+    };
+
+    async getStudentIdByEmail(email) {
+        return this.TablesDB.listRows({
+            databaseId: conf.appwriteDatabaseID,
+            tableId: conf.tableIDStudents,
+            queries: [
+                Query.equal("email", email)
+            ]
+        })
     }
 
 
