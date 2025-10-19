@@ -7,7 +7,7 @@ function Button({buttonName, onClick, type, disabled, className, hidden}) {
     
     return (
         <div>
-            <button className={`w-full bg-indigo-600 hover:bg-indigo-700 py-3 px-6 rounded-lg transition duration-300 shadow-lg hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 ${className}` } 
+            <button className={`w-full bg-gradient-to-r from-indigo-600 to-purple-400 text-white hover:bg-indigo-700 py-3 px-6 rounded-lg transition duration-300 shadow-lg hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 ${className}` } 
             onClick={onClick} 
             type={type} 
             disabled={disabled}

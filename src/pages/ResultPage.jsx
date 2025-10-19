@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Result, dbService } from '../index'
+import { Result, dbService, Button } from '../index';
+import { useNavigate } from 'react-router-dom';
 
 
 function ResultPage() {
@@ -7,11 +8,15 @@ function ResultPage() {
     const [selectedTopic, setSelectedTopic] = useState("");
     const [selectedClass, setSelectedClass] = useState("");
     const [studentName , setStudentName] = useState("");
+    const navigate = useNavigate();
     const email = sessionStorage.getItem("StudentDetails")
     const score = parseInt(JSON.parse(sessionStorage.getItem("Score")));
     const [bgColor, setBgColor] = useState("");
 
-    
+    const closeResult = () => {
+        sessionStorage.clear();
+        navigate('/');
+    }
     
 
     useEffect( () => {
@@ -23,11 +28,20 @@ function ResultPage() {
             setStudentName(String(studentRecord.firstName).concat(" ").concat(studentRecord.lastName));
             setSelectedTopic(selectedTopic);
             setSelectedClass(responseClass);
-            if (score < 8) {
-            setBgColor("bg-green-400");
-    }
+            
+            if (score >= 8) {
+                setBgColor("bg-green-400");
+            } else {
+                if (score < 8 && score > 4 ) {
+                    setBgColor("bg-amber-400");
+                }
+                else {
+                    setBgColor("bg-red-400");
+                }
+            }
         } 
         selected();
+        
         
         
     }, [sessionStorage.getItem("classId"), sessionStorage.getItem("topicId")] )
@@ -38,6 +52,8 @@ function ResultPage() {
         return (
     
             <div>
+                <div>
+
                 <Result 
                     selectedTopic={selectedTopic}
                     selectedClass={selectedClass}
@@ -46,6 +62,10 @@ function ResultPage() {
                     studentName={studentName}
                     bgColor={bgColor}
                 />
+                </div>
+                <div>
+                    <Button buttonName="Close Results" onClick={closeResult}/>
+                </div>
             </div>
         )
     }

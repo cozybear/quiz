@@ -11,8 +11,8 @@ function Header() {
         //         Header Home
         //     </div>
         // </div>
-        <div>
-            Header
+        <div className='text-3xl font-bold'>
+            The Physics Show
         </div>
     )
 }

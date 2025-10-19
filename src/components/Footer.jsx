@@ -10,8 +10,8 @@ function Footer() {
         //         Home
         //     </div>
         // </div>
-        <div>
-            Footer
+        <div className='text-2xl font-bold'>
+            Prashant K. Agnihotri
         </div>
     )
 }
