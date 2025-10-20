@@ -51,7 +51,7 @@ function ResultPage() {
 
         return (
     
-            <div>
+            <div className='bg-gray-100'>
                 <div>
 
                 <Result 

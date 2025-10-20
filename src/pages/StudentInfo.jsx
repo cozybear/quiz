@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { InputBox, Button, authService, dbService } from '../index';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 
 
 
@@ -31,10 +31,11 @@ function StudentInfo() {
             if (String(error).includes("ID already exists")) {
                 // dbService.getStudentIdByEmail(email);
             const studentId =  (await dbService.getStudentIdByEmail(email)).rows[0].email;
-            console.log(studentId);
+            // console.log(studentId);
             sessionStorage.setItem("StudentDetails", studentId)
-                console.log("Student Already Registered")
+                // console.log("Student Already Registered");
                 navigate('/startquiz');
+                // <Navigate to={"/startquiz"} />
             }
         }   
     }
