@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Question, QuestionComponent, dbService } from '../index'
+import { Question, QuestionComponent, dbService, Shuffle } from '../index'
 import conf from '../conf/conf'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,10 @@ import { useNavigate } from 'react-router-dom';
 function QuestionPage(){
 
     const [questions, setQuestions] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
+    // const [currentIndex, setCurrentIndex] = useState(0);
+    
+    let currentIndex = JSON.parse(sessionStorage.getItem("CurrentIndex"));
+    // console.log(currentIndex);
     const { register, handleSubmit, formState: { errors } }   = useForm();
     const [submitAnswer, setSubmitAnswer] = useState(false);
     const [userAnswer, setUserAnswer] = useState("");
@@ -23,41 +26,41 @@ function QuestionPage(){
     const score =   JSON.parse(sessionStorage.getItem("Score"));
     const max_score = questions.length;
     const navigate = useNavigate();
-
+    const maxQuestions = 5;
     
     if (!sessionStorage.getItem("Score")) {
         sessionStorage.setItem("Score", 0)
     }
-
-    var currentQuestion = questions[currentIndex];
+    
+    let currentQuestion = questions[currentIndex];
     
     useEffect ( () => {
         const getQuestions = async () => {
             try {
-            
-                const response = (await dbService.getQuestions(classId, topicId));
-                
-                setQuestions(response.rows);
-                
-                
+                const response = (await dbService.getQuestions(classId, topicId)).rows;
+                const selectedQuestions = Shuffle(response, maxQuestions);
+                setQuestions(selectedQuestions);
+                sessionStorage.setItem("CurrentIndex", 0);
             } catch (error) {
                 console.log(error)
             }
         }
         getQuestions();
     }, [classId, topicId]);
-
+ 
     const nextQuestion = (e) => {
         if (currentIndex < questions.length - 1) {
-            setCurrentIndex(currentIndex + 1);
+            // setCurrentIndex(currentIndex + 1);
+            sessionStorage.setItem("CurrentIndex", JSON.parse(sessionStorage.getItem("CurrentIndex"))+1);
             setSubmitAnswer(false);
             setnextButton(false);
             setcorrectAnswer("");
             setUserAnswer("");
             setNextButtonName("Can't Answer");
         } 
-        console.log(e.target.value);
+        
         if (String(e.target.value) === "Finish Quiz") {
+            sessionStorage.setItem("QuizCompleted", true);
             navigate('/result')
         }
 
@@ -88,7 +91,7 @@ function QuestionPage(){
         
     }
     return (
-        <div className='rounded-2xl shadow-2xl'>
+        <div className='rounded-2xl shadow-2xl bg-gray-200'>
             <div className='grid grid-cols-2 p-6 '>
 
                 <div className='justify-self-start'>

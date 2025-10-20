@@ -14,6 +14,8 @@ import StudentInfo from '../src/pages/StudentInfo';
 import QuestionComponent from '../src/components/QuestionComponent';
 import Result from '../src/components/Result';
 import ResultPage from '../src/pages/ResultPage';
+import Shuffle from './hooks/Shuffle';
+import ProtectedRoute from '../src/components/ProtectedRoute';
 
 export {
     Question,
@@ -31,5 +33,7 @@ export {
     authService,
     QuestionComponent,
     Result,
-    ResultPage
+    ResultPage,
+    Shuffle,
+    ProtectedRoute
 };

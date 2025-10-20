@@ -64,7 +64,7 @@ function InitiateQuiz() {
     if (!classname.class) {
 
         return (
-            <div className='max-w-md w-full shadow-lg rounded-lg p-6 text-center'>
+            <div className='max-w-md w-full shadow-lg rounded-lg p-6 text-center bg-gray-100'>
                 <div className='text-3xl m-10'>
                     Select Your Class
                 </div>
