@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { QuestionPage, Layout, TestMobile, Home, InitiateQuiz, StudentInfo, ResultPage, ProtectedRoute  } from '../src/index'
+import { QuestionPage, Layout, TestMobile, Home, InitiateQuiz, StudentInfo, ResultPage, ProtectedRoute, SignInPage, UserRegisterPage  } from '../src/index'
 import { createBrowserRouter, RouterProvider, BrowserRouter, Routes, Route, Router  } from 'react-router-dom'
 
 function App() {
@@ -61,9 +61,17 @@ function App() {
           path='/'
           element={<Home />}
         />
-        <Route 
+        {/* <Route 
           path='/details'
           element={<StudentInfo />}
+        /> */}
+        <Route 
+          path='/signin'
+          element={<SignInPage />}
+        />
+        <Route 
+          path='/register'
+          element={<UserRegisterPage />}
         />
 
         <Route 
@@ -71,7 +79,7 @@ function App() {
           element={
             <ProtectedRoute
             requiredItemKey="StudentDetails"
-            redirectPath="/details"
+            redirectPath="/signin"
             >
               <InitiateQuiz />
             </ProtectedRoute>
@@ -82,7 +90,7 @@ function App() {
           element= {
             <ProtectedRoute
               requiredItemKey="StudentDetails"
-              redirectPath="/details"
+              redirectPath="/signin"
             >
               <QuestionPage />
             </ProtectedRoute>
@@ -93,7 +101,7 @@ function App() {
           element= {
             <ProtectedRoute
               requiredItemKey="QuizCompleted"
-              redirectPath="/details"
+              redirectPath="/signin"
             >
               <ResultPage />
             </ProtectedRoute>

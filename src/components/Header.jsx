@@ -1,18 +1,46 @@
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { Button, authService } from '../index'
+import { useNavigate } from 'react-router-dom';
 
 
 function Header() {
 
+    const navigate = useNavigate();
+    var storedLogin = JSON.parse(sessionStorage.getItem("IsLoggedIn")) ? true : false;
+    const [isLoggedIn, setIsLoggedIn] = useState(storedLogin);
+    console.log(isLoggedIn);
+    
+    let hideSignOut = true;
+    
+    useEffect( () => {
+        setIsLoggedIn(JSON.parse(sessionStorage.getItem("IsLoggedIn")));
+    }, [storedLogin]);
+    
+    const logout = async () => {
+    const sessionId = JSON.parse(sessionStorage.getItem("StudentDetails")).$id;
+    console.log(sessionId);
+    const userLogout = await authService.logout(sessionId);
+    sessionStorage.removeItem("StudentDetails");
+    sessionStorage.removeItem("IsLoggedIn");
+    setIsLoggedIn(false);
+    if (userLogout) {
+        navigate('/signin')
+    }
+    console.log(userLogout);
+    }
 
     return (
-        // <div className='w-full bg-gradient-to-r from-indigo-500 to-purple-600 shadow-md top-0 z-50 border border-gray-50 h-20 max-h-50'>
-        //     <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
-        //         Header Home
-        //     </div>
-        // </div>
-        <div className='text-3xl font-bold'>
-            The Physics Show
+        
+        <div className='w-full flex gap-x-10 justify-between'>        
+            <div className='w-1/3'>
+                
+            </div>
+            <div className='w-1/3 text-3xl font-bold text-center'>
+                The Physics Show
+            </div>
+            <div className="w-1/3 flex justify-end px-10">
+                <Button buttonName="Sign Out" onClick={logout} hidden={!isLoggedIn}/>
+            </div>
         </div>
     )
 }
