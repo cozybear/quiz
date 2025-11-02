@@ -16,7 +16,10 @@ import Result from '../src/components/Result';
 import ResultPage from '../src/pages/ResultPage';
 import Shuffle from './hooks/Shuffle';
 import ProtectedRoute from '../src/components/ProtectedRoute';
-
+import SignInPage from './pages/SignInPage';
+import SignIn from './components/SignIn';
+import UserRegisterPage from './pages/UserRegisterPage';
+import UserRegister from './components/UserRegister.jsx';
 export {
     Question,
     QuestionPage,
@@ -35,5 +38,9 @@ export {
     Result,
     ResultPage,
     Shuffle,
-    ProtectedRoute
+    ProtectedRoute,
+    SignInPage,
+    SignIn,
+    UserRegisterPage,
+    UserRegister
 };

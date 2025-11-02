@@ -5,9 +5,6 @@ import { Client, Account, ID } from 'appwrite';
 
 export class AuthService {
 
-    
-
-
     client = new Client();
     constructor() {
         this.client
@@ -22,14 +19,14 @@ export class AuthService {
 
         try {
             
-            const userCreated = this.Account.create({
+            const result = this.Account.create({
                 userId: ID.unique(),
                 email: email,
                 password: password,
                 name: name
             })
 
-            if (userCreated) {
+            if (result) {
                 return true;
             }
             else {
@@ -41,6 +38,36 @@ export class AuthService {
         }
     }
 
+    async login({email, password}) {
+
+        try {
+            
+            const result = this.Account.createEmailPasswordSession({
+                email: email,
+                password: password
+            })
+
+            if (result) {
+                return result
+            }
+            
+        } catch (error) {
+            throw error;
+        }
+
+    }
+
+    async logout(sessionId){
+        try {
+            const result = await this.Account.deleteSession({
+
+                sessionId: sessionId
+            });
+            return result;
+        } catch (error) {
+            return error;
+        }
+    }
 
 }
 
