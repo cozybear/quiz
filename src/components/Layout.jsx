@@ -5,7 +5,7 @@ import { Header, Footer } from '../index'
 
 const Layout = ({children}) => {
     return (
-        <div className="flex flex-col min-h-screen bg-[url('../src/physics.jpg')]">
+        <div className="flex flex-col min-h-screen bg-[url('../src/bgimage.jpg')]">
             <div className='h-20 text-white flex items-center justify-center'>
             <Header />
             {/* bg-gradient-to-r from-indigo-600 to-purple-400 */}

@@ -1,27 +1,60 @@
 import { useForm } from 'react-hook-form';
 import { Button, InputBox, authService } from '../index';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 function SignIn(){
 
     const { handleSubmit, register} = useForm();
     const navigate = useNavigate();
-
+    const [error, setError ] = useState("");
+    // const [currentUser, setCurrentUser] = useState("");
     const submitLoginForm = async (data) => {
-        console.log(data);
+        
         const email = data.email;
         const password = data.password;
-        const result = await authService.login({email, password});
-        if (result) {
-            sessionStorage.setItem("StudentDetails", JSON.stringify(result));
-            sessionStorage.setItem("IsLoggedIn", true);
-            navigate('/startquiz');
-            console.log(result.$id);
-        }
-        else {
-            console.log("Login Failed")
-        }
+        setError("");
+        try {
+            const result = await authService.login({email, password});
+            if (result) {
+                sessionStorage.setItem("StudentDetails", JSON.stringify(result));
+                sessionStorage.setItem("IsLoggedIn", true);
+                navigate('/startquiz');
+                console.log(result.$id);
+                const user = await authService.getAccount();
+                if (user) {
+                    console.log(user);
+                    sessionStorage.setItem("CurrentUser", JSON.stringify(user));
+                }   
+            }
+            else {
+                console.log("Login Failed");
+            }
+        } 
+        catch (error) {
 
+            if (error.name == 'AppwriteException') {
+               
+                if (error.type == 'user_invalid_credentials' ) {
+                    setError("Invalid Credentials");
+                }
+                if (error.type == "user_session_already_exists") {
+                    const user = await authService.getAccount();
+                   
+                    if (user) {
+                        console.log(user);
+                        sessionStorage.setItem("IsLoggedIn", true);
+                        sessionStorage.setItem("CurrentUser", JSON.stringify(user));
+                        navigate('/startquiz')
+                    }
+                    setError("Session Already Exists");
+
+                } else {
+                    console.log(error);
+                    setError(error.type);
+                }
+            }
+        }
     }
 
     const notRegistered = () => {
@@ -29,16 +62,17 @@ function SignIn(){
     };
     
 
-    const isLoggedIn = sessionStorage.getItem("StudentDetails");
+    const isLoggedIn = sessionStorage.getItem("IsLoggedIn");
+    
     if (isLoggedIn) {
         navigate('/startquiz')
     }
 
 
 
-    return (
-        <div>
-            <form onSubmit={handleSubmit(submitLoginForm )}>
+        return (
+            <div className='p-2'>
+            <form onSubmit={handleSubmit(submitLoginForm )} className='p-2'>
                 <div>
                     <InputBox 
                         labelName="Username" 
@@ -85,6 +119,9 @@ function SignIn(){
                             onClick={notRegistered}
                         />
                     </div>
+                </div>
+                <div>
+                    {error}
                 </div>
         </div>
     )

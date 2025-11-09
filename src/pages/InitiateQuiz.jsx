@@ -31,18 +31,11 @@ function InitiateQuiz() {
         
         dispatch(selectclass(e.target.value));
         sessionStorage.setItem("classId", JSON.stringify(e.target.value));
-        // setSelectedClass(classname);
-        
         const getTopics = await dbService.getTopicsByClass(e.target.value);
         
         if (getTopics.rows) {
-            // console.log(getTopics.rows)
             setTopics(getTopics.rows)
-
-        }
-        // console.log(`This is topics ${getTopics.rows}`)
-        // console.log(`UseState Topics: ${JSON.stringify(topics)}`)
-        
+        } 
     };
 
     const clickTopic = (e) => {

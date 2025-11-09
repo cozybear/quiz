@@ -18,7 +18,7 @@ function Shuffle(inputArray, outputArrayLength) {
                 inputArray[currentIndex] = randomIndexValue;
                 inputArray[randomIndex] = currentIndexValue;       
             }
-            // setOutputArray(inputArray.splice(0, outputArrayLength));
+
             outputArray = inputArray.splice(0, outputArrayLength);
         }
    

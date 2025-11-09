@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { Button } from '../index';
+import { useNavigate } from 'react-router-dom';
 
 function Result({
     score,
@@ -7,9 +8,20 @@ function Result({
     selectedClass,
     email,
     studentName,
+    maxScore,
     bgColor
     }){
-    // console.log(selectedTopic)
+
+    const navigate = useNavigate();
+    const closeResult = () => {
+        sessionStorage.removeItem("classId");
+        sessionStorage.removeItem("topicId");
+        sessionStorage.removeItem("Score");
+        sessionStorage.removeItem("CurrentIndex");
+        sessionStorage.removeItem("TotalQuestions");
+        sessionStorage.removeItem("QuizCompleted");
+        navigate('/');
+    }
     return(
         <div className='flex flex-col min-w-md shadow-lg rounded-2xl p-4'>
             <div className='flex flex-col items-center text-center'>
@@ -18,23 +30,27 @@ function Result({
                         {score}
                     </div>
                     <div className=''>
-                        Out of 10
+                       /{maxScore}
                     </div>
                 </div>
             </div>
-            <div >
-                Name: {studentName}
+            <div className='flex flex-col justify-center items-center'>
+                <div>
+                    Name: {studentName}
+                </div>
+                <div>
+                    Class: {selectedClass}
+                </div>
+                <div>
+                    Topic: {selectedTopic}
+                </div>
+                <div>
+                    Email: {email}
+                </div>
             </div>
-            <div>
-                Class: {selectedClass}
+            <div className='p-3'>
+                    <Button buttonName="Close Results" onClick={closeResult}/>
             </div>
-            <div>
-                Topic: {selectedTopic}
-            </div>
-            <div>
-                Email: {email}
-            </div>
-            
         </div>
     )
 
