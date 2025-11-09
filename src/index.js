@@ -20,6 +20,10 @@ import SignInPage from './pages/SignInPage';
 import SignIn from './components/SignIn';
 import UserRegisterPage from './pages/UserRegisterPage';
 import UserRegister from './components/UserRegister.jsx';
+import UpdatedQuestionComponent from './components/UpdatedQuestionComponent.jsx'
+import UpdatedQuestionPage from './pages/UpdatedQuestionPage.jsx'
+
+
 export {
     Question,
     QuestionPage,
@@ -42,5 +46,7 @@ export {
     SignInPage,
     SignIn,
     UserRegisterPage,
-    UserRegister
+    UserRegister,
+    UpdatedQuestionComponent,
+    UpdatedQuestionPage,
 };

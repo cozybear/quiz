@@ -8,12 +8,17 @@ function Header() {
     const navigate = useNavigate();
     var storedLogin = JSON.parse(sessionStorage.getItem("IsLoggedIn")) ? true : false;
     const [isLoggedIn, setIsLoggedIn] = useState(storedLogin);
-    console.log(isLoggedIn);
+    const [currentUser, setCurrentUser] = useState("");
+    // console.log(isLoggedIn);
     
     let hideSignOut = true;
     
     useEffect( () => {
-        setIsLoggedIn(JSON.parse(sessionStorage.getItem("IsLoggedIn")));
+        if (storedLogin) {
+            
+            setIsLoggedIn(JSON.parse(sessionStorage.getItem("IsLoggedIn")));
+            setCurrentUser(JSON.parse(sessionStorage.getItem("CurrentUser")).name);
+        }
     }, [storedLogin]);
     
     const logout = async () => {
@@ -32,14 +37,15 @@ function Header() {
     return (
         
         <div className='w-full flex gap-x-10 justify-between'>        
-            <div className='w-1/3'>
-                
+            <div className='w-1/3 py-3'>
+                Welcome! {currentUser}
             </div>
             <div className='w-1/3 text-3xl font-bold text-center'>
                 The Physics Show
             </div>
             <div className="w-1/3 flex justify-end px-10">
                 <Button buttonName="Sign Out" onClick={logout} hidden={!isLoggedIn}/>
+                
             </div>
         </div>
     )

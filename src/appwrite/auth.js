@@ -48,13 +48,15 @@ export class AuthService {
             })
 
             if (result) {
-                return result
+                return result;
             }
             
-        } catch (error) {
-            throw error;
+        } 
+        catch (error) {
+           throw error;
+            
         }
-
+        // return result;
     }
 
     async logout(sessionId){
@@ -69,6 +71,22 @@ export class AuthService {
         }
     }
 
+    async getAccount() {
+        try {
+            
+            const result = await this.Account.get();
+            if (result) {
+                return result;
+            }
+            else {
+                return false;
+            }
+
+        } catch (error) {
+            return error;
+        }
+    };
+    
 }
 
 

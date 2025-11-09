@@ -6,6 +6,8 @@ import { Button } from '../index';
 function Home() {
     
     const navigate = useNavigate();
+    const isLoggedIn = sessionStorage.getItem("IsLoggedIn") == 'true';
+    
 
     const startQuiz = () => {
         navigate('/details')
@@ -14,6 +16,13 @@ function Home() {
     const signIn = () => {
         navigate('/signin')
     }
+
+    const startLoggedInQuiz = (e) => {
+        navigate("/startquiz");
+    }
+
+
+   
 
     return (
 
@@ -31,22 +40,33 @@ function Home() {
                 Test your knowledge of the universe, from classical mechanics to quantum theory. Our short, focused quizzes are designed to challenge your mind and solidify your understanding of fundamental physical concepts.
             </p>
         </div>
+
         <div className='p-2'>
-        <Button 
+            <Button 
             buttonName={"Instant Quiz"}  
             className='text-white'
-            hidden={false}
+            hidden={isLoggedIn}
             onClick={startQuiz}
-        />
+            />
         </div>
         <div className='p-2'>
             <Button 
                 buttonName={"Sign In"}  
                 className='text-white'
-                hidden={false}
+                hidden={isLoggedIn}
                 onClick={signIn}
-            />
+                />
         </div>
+        <div className='p-2'>
+            <Button 
+                buttonName={"Start Quiz"}  
+                className='text-white'
+                hidden={!isLoggedIn}
+                onClick={startLoggedInQuiz}
+                />
+        </div>
+                
+
         
         <p className="mt-6 text-sm text-gray-400">
             Ready to explore the laws of nature?
