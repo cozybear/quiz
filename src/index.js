@@ -21,10 +21,13 @@ import SignIn from './components/SignIn';
 import UserRegisterPage from './pages/UserRegisterPage';
 import UserRegister from './components/UserRegister.jsx';
 import UpdatedQuestionComponent from './components/UpdatedQuestionComponent.jsx'
-import UpdatedQuestionPage from './pages/UpdatedQuestionPage.jsx'
+import UpdatedQuestionPage from './pages/UpdatedQuestionPage.jsx';
+import Test from '../src/pages/Test.jsx';
+import ProgressCircleComponent from './components/ProgressCircleComponent.jsx';
 
 
 export {
+    Test,
     Question,
     QuestionPage,
     Header,
@@ -49,4 +52,5 @@ export {
     UserRegister,
     UpdatedQuestionComponent,
     UpdatedQuestionPage,
+    ProgressCircleComponent,
 };

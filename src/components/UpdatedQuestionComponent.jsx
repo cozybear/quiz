@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { dbService, Shuffle, Button, InputBox } from '../index';
+import { dbService, Shuffle, Button, InputBox, ProgressCircleComponent } from '../index';
 import { useForm } from 'react-hook-form';
 import { useNavigate  } from 'react-router-dom';
 
@@ -18,6 +18,10 @@ function UpdatedQuestionComponent({ questions, maxQuestions }) {
     var score =   JSON.parse(sessionStorage.getItem("Score"));
     var currentIndex = parseInt(sessionStorage.getItem("CurrentIndex"));
     const currentQuestion = questions[currentIndex];
+    const [timeLeft, setTimeLeft] = useState(10);
+    const [timerClass, setTimerClass ] = useState("green-500");
+    const timeLimitQuestion = 10;
+    
 
     if (currentQuestion) {
         const optionArray = ([currentQuestion.Option1, currentQuestion.Option2, currentQuestion.Option3, currentQuestion.Option4 ]).filter(item => item !== null);
@@ -41,7 +45,42 @@ function UpdatedQuestionComponent({ questions, maxQuestions }) {
         
         setQuestion(questions[currentIndex]);
         setOptions(currentOptions);
-        // setAnswerSubmitted(false);
+        setTimeLeft(timeLimitQuestion);
+
+        const timer = setInterval(() => {
+            setTimeLeft((prevTime) => {
+                if (prevTime <= 1) {
+                    currentIndex = parseInt(sessionStorage.getItem("CurrentIndex"));
+                    if ( currentIndex < maxQuestionsNumber ) {
+
+                        setQuestion(currentIndex+1);
+                        sessionStorage.setItem("CurrentIndex", currentIndex+1);
+                    }
+                    else {
+                        finishQuiz();
+                    }
+                    clearInterval(timer);
+                    return 0;
+                }
+                
+                const timerprogress = prevTime/timeLimitQuestion;
+
+                if(timerprogress > 0.6 ) {
+                    setTimerClass("green-500")
+                } else {
+                       if (timerprogress <= 0.6 && timerprogress > 0.3 ) {
+                        setTimerClass("red-500");
+                    }
+                    else {
+                        setTimerClass("red-500");
+                    }
+                }
+                return prevTime-1;
+            });
+        }, 1000)
+        
+        return () => clearInterval(timer);
+
     }, [currentIndex, currentQuestion]);
 
     const submitAnswer = (data) => {
@@ -89,15 +128,25 @@ function UpdatedQuestionComponent({ questions, maxQuestions }) {
 
         return (
             <div className='min-w-100 max-w-md mx-auto p-6 rounded-xl bg-white'>
-                <div className='flex justify-between my-4 px-2 py-2 '>
+                <div className='flex justify-between my-4 relative'>
                     <div className=''>
                         Question No. {currentIndex+1}
                     </div>
-                    <div>
+                    <div className=' absolute top-0 left-1/2 -translate-x-1/2 h-20 w-20 ' >
+                        <ProgressCircleComponent   
+                            radius={"10"}
+                            progressColor={timerClass}
+                            progressWidth={"2"}
+                            timeLeft={timeLeft}
+                            timeLimitQuestion={timeLimitQuestion} 
+                            fontSize={10}  
+                        />
+                    </div>
+                    <div className=''>
                         Your Score: {score}
                     </div>
                 </div>
-            <div>
+            <div className='mt-15'>
                 <form className='' onSubmit={handleSubmit(submitAnswer)}>
                     <div>
                         {question && question.Question}

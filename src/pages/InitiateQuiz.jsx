@@ -25,6 +25,7 @@ function InitiateQuiz() {
             setClasses(response.rows);
         };
         getClasses();
+        
     }, []);
 
     const clickClass = async (e) => {
