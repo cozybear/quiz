@@ -10,8 +10,9 @@ function UpdatedQuestionPage() {
 
     const maxQuestions = 4; // The total number of questions are always +1 than   
     sessionStorage.setItem("TotalQuestions", maxQuestions+1);  
+    sessionStorage.setItem("Score", 0);
 
- useEffect ( () => {
+    useEffect ( () => {
         const getQuestions = async () => {
             try {
                 const response = (await dbService.getQuestions(classId, topicId)).rows;
@@ -23,7 +24,8 @@ function UpdatedQuestionPage() {
             }
         }
         getQuestions();
-    }, [classId, topicId]);
+        }, [classId, topicId]
+    );
    
     return(
         <UpdatedQuestionComponent questions={questions} maxQuestions={maxQuestions} />
