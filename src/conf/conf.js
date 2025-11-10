@@ -12,6 +12,7 @@ const conf = {
     tableIDClassTopic: String(import.meta.env.VITE_APPWRITE_TALBLEID_CLASSTOPIC),
     tableIDQuestions: String(import.meta.env.VITE_APPWRITE_TALBLEID_QUESTIONS),
     tableIDStudents: String(import.meta.env.VITE_APPWRITE_TABLEID_STUDENTS),
+    tableIDQuizResults: String(import.meta.env.VITE_APPWRITE_TABLEID_QUIZRESULTS),
 }
 
 

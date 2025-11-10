@@ -14,10 +14,8 @@ export class DBService {
         this.TablesDB = new TablesDB(this.client);
     }
 
-
     async getQuestions(classId, topicId){
         try {
-
             return await this.TablesDB.listRows({
                 databaseId: conf.appwriteDatabaseID,
                 tableId: conf.tableIDQuestions,
@@ -28,21 +26,16 @@ export class DBService {
                             Query.equal("Topic", String(topicId))
                         ]
                     )
-                    
                 ]
             })
-
         }
         catch(error){
             throw error;
         }
     }
 
-
     async getClasses() {
-
         try {
-            // console.log(conf.tableIDClasses)
             return await this.TablesDB.listRows({
                 databaseId: conf.appwriteDatabaseID,
                 tableId: conf.tableIDClasses
@@ -50,7 +43,6 @@ export class DBService {
         } catch (error) {
             throw error;
         }
-
     }
 
     async getTopicsByClass(classId) {
@@ -67,7 +59,6 @@ export class DBService {
 
 
     createStudent({firstName, lastName, email}) {
-        
             try {
                 return  this.TablesDB.createRow({
                     databaseId: conf.appwriteDatabaseID,
@@ -78,13 +69,10 @@ export class DBService {
                         "lastName": lastName,
                         "email": email
                     }
-                })
-                
+                })              
             } catch (error) {
                 console.error(error )
-            }
-
-       
+            }  
     }
 
     async getTopicById(topicId) {
@@ -93,9 +81,7 @@ export class DBService {
             databaseId: conf.appwriteDatabaseID,
             tableId: conf.tableIDClassTopic,
             rowId: String(topicId)
-
         })
-
     }
 
     async getClassById(classId) {
@@ -117,6 +103,34 @@ export class DBService {
         })
     }
 
+    async getQuizResultsByEmail(email) {
+    
+        return this.TablesDB.listRows({
+            databaseId: conf.appwriteDatabaseID,
+            tableId: conf.tableIDQuizResults,
+            queries: [
+                Query.equal("studentemail", email)
+            ]
+        });
+    };
+
+    async updateResults(email, score, classId, topicId) {
+        
+        return this.TablesDB.createRow({
+            databaseId: conf.appwriteDatabaseID,
+            tableId: conf.tableIDQuizResults,
+            rowId: ID.unique(),
+            data: {
+                quizDate: new Date(Date.now()).toLocaleString("en-GB", { timeZone: "Asia/Kolkata" }),
+                score: score,
+                classId: classId,
+                topicId: topicId,
+                studentEmail: email
+            }
+
+        })
+
+    }
 
 }
 

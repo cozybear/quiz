@@ -10,17 +10,13 @@ import { useNavigate } from 'react-router-dom';
 function QuestionPage(){
 
     const [questions, setQuestions] = useState([]);
-    // const [currentIndex, setCurrentIndex] = useState(0);
-    
     let currentIndex = JSON.parse(sessionStorage.getItem("CurrentIndex"));
-    // console.log(currentIndex);
     const { register, handleSubmit, formState: { errors } }   = useForm();
     const [submitAnswer, setSubmitAnswer] = useState(false);
     const [userAnswer, setUserAnswer] = useState("");
     const [nextButton, setnextButton] = useState(false);
     const [correctAnswer, setcorrectAnswer] = useState("");
     const [nextButtonName, setNextButtonName] = useState("Can't Answer");
-    // const selectedClass = useSelector((state) => state.class);
     const classId = JSON.parse(sessionStorage.getItem("classId"));
     const topicId = JSON.parse(sessionStorage.getItem("topicId"));
     const score =   JSON.parse(sessionStorage.getItem("Score"));
@@ -48,7 +44,7 @@ function QuestionPage(){
         getQuestions();
     }, [classId, topicId]);
  
-    const nextQuestion = (e) => {
+    const nextQuestion = async (e) => {
         if (currentIndex < questions.length - 1) {
             // setCurrentIndex(currentIndex + 1);
             sessionStorage.setItem("CurrentIndex", JSON.parse(sessionStorage.getItem("CurrentIndex"))+1);
@@ -61,7 +57,14 @@ function QuestionPage(){
         
         if (String(e.target.value) === "Finish Quiz") {
             sessionStorage.setItem("QuizCompleted", true);
-            navigate('/result')
+            const email = JSON.parse(sessionStorage.getItem("CurrentUser")).email;
+
+            const updateResults = await dbService.updateResults( email, score, classId, topicId )
+            
+            if (updateResults) {
+                console.log(updateResults);
+                navigate('/result');
+            }
         }
 
     };

@@ -3,7 +3,7 @@ import { dbService, Shuffle, Button, InputBox, ProgressCircleComponent } from '.
 import { useForm } from 'react-hook-form';
 import { useNavigate  } from 'react-router-dom';
 
-function UpdatedQuestionComponent({ questions, maxQuestions }) {
+function UpdatedQuestionComponent({ questions, maxQuestions, finishQuiz }) {
 
     const navigate = useNavigate();    
     const maxQuestionsNumber = parseInt(maxQuestions);
@@ -20,7 +20,7 @@ function UpdatedQuestionComponent({ questions, maxQuestions }) {
     const currentQuestion = questions[currentIndex];
     const [timeLeft, setTimeLeft] = useState(10);
     const [timerClass, setTimerClass ] = useState("green-500");
-    const timeLimitQuestion = 10;
+    const timeLimitQuestion = 100;
     
 
     if (currentQuestion) {
@@ -57,7 +57,7 @@ function UpdatedQuestionComponent({ questions, maxQuestions }) {
                         sessionStorage.setItem("CurrentIndex", currentIndex+1);
                     }
                     else {
-                        finishQuiz();
+                        finishQuiz;
                     }
                     clearInterval(timer);
                     return 0;
@@ -93,14 +93,7 @@ function UpdatedQuestionComponent({ questions, maxQuestions }) {
         }
     };
 
-    const finishQuiz = (e) => {
-        console.log("Quiz Finished")
-        const final_score = parseInt(sessionStorage.getItem("Score"));
-        sessionStorage.setItem("QuizCompleted", "true");
-        sessionStorage.setItem("TotalQuestions", maxQuestionsNumber);
-        navigate('/result');
-        
-    }
+    
 
     const getOptionClass = (item) => {
         if (answerSubmitted) {
@@ -184,6 +177,9 @@ function UpdatedQuestionComponent({ questions, maxQuestions }) {
                         <Button buttonName={"Finish Quiz"} className={'min-w-50'} onClick={finishQuiz}/>
                     }
                     
+                </div>
+                <div className='flex justify-center pt-4'>
+                    Total Questions: {maxQuestionsNumber}
                 </div>
             </div>
         </div>
