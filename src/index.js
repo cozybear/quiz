@@ -24,7 +24,9 @@ import UpdatedQuestionComponent from './components/UpdatedQuestionComponent.jsx'
 import UpdatedQuestionPage from './pages/UpdatedQuestionPage.jsx';
 import Test from '../src/pages/Test.jsx';
 import ProgressCircleComponent from './components/ProgressCircleComponent.jsx';
-
+import ProfileComponent from '../src/components/ProfileComponent.jsx';
+import Profile from '../src/pages/Profile.jsx';
+import storageService  from './appwrite/storage.js';
 
 export {
     Test,
@@ -53,4 +55,7 @@ export {
     UpdatedQuestionComponent,
     UpdatedQuestionPage,
     ProgressCircleComponent,
+    ProfileComponent,
+    Profile,
+    storageService,
 };

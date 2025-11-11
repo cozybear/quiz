@@ -109,7 +109,7 @@ export class DBService {
             databaseId: conf.appwriteDatabaseID,
             tableId: conf.tableIDQuizResults,
             queries: [
-                Query.equal("studentemail", email)
+                Query.equal("studentEmail", email)
             ]
         });
     };
@@ -129,8 +129,9 @@ export class DBService {
             }
 
         })
+    };
 
-    }
+    
 
 }
 

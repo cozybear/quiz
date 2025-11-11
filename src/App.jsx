@@ -14,6 +14,7 @@ import {
   SignInPage, 
   UserRegisterPage, 
   UpdatedQuestionPage,
+  Profile,
   Test,  
 } from '../src/index'
 import { createBrowserRouter, RouterProvider, BrowserRouter, Routes, Route, Router  } from 'react-router-dom'
@@ -128,6 +129,17 @@ function App() {
               redirectPath="/signin"
             >
               <ResultPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route 
+          path='/profile'
+          element= {
+            <ProtectedRoute
+              requiredItemKey="CurrentUser"
+              redirectPath="/signin"
+            >
+              <Profile />
             </ProtectedRoute>
           }
         />
